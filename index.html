@@ -68,7 +68,6 @@ body {
   transition: background .3s, color .3s;
 }
 
-/* Global Link Settings */
 a {
   text-decoration: none !important;
   transition: all .2s;
@@ -99,7 +98,7 @@ nav { display: flex; gap: 2.5rem; align-items: center; }
 
 nav a {
   font-family: 'Space Mono', monospace;
-  font-size: .75rem; /* تصغير الخط قليلاً */
+  font-size: .75rem; 
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .12em; color: var(--fg2);
@@ -124,30 +123,33 @@ nav a:hover, nav a.active { color: var(--fg); }
 }
 .social-icon:hover { color: var(--fg); }
 
-/* ─── HERO ───────────────────────────────────────── */
+/* ─── HERO (With Background Image & Transparent Box) ─ */
 .hero {
-  background: #f0eeeb;
+  background-image: url('https://i.postimg.cc/sXJNsQq4/image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   min-height: 82vh;
   display: flex; align-items: center;
   padding: 6rem 2rem 5rem;
   position: relative; overflow: hidden;
 }
 
+/* Dark overlay to make text readable */
 .hero::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.025) 3px, rgba(0,0,0,.025) 4px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,.015) 3px, rgba(0,0,0,.015) 4px);
+  background: rgba(0, 0, 0, 0.5); /* Overlay */
+  z-index: 0;
 }
 
 .hero-box {
-  background: #f0eeeb;
-  border: 2px solid #0d0d0d;
+  background: transparent;
+  border: none;
   padding: 3.5rem 4rem;
   max-width: 580px;
   position: relative; z-index: 1;
-  box-shadow: 10px 10px 0 #0d0d0d;
+  box-shadow: none;
 }
 
 .hero-h1 {
@@ -155,7 +157,7 @@ nav a:hover, nav a.active { color: var(--fg); }
   font-size: clamp(2.8rem, 5vw, 4.5rem);
   font-weight: 900; line-height: 1;
   text-transform: uppercase; letter-spacing: .01em;
-  color: #0d0d0d; margin-bottom: .15rem;
+  color: #ffffff; margin-bottom: .15rem;
 }
 .hero-h1-red {
   display: block; color: var(--accent);
@@ -167,7 +169,7 @@ nav a:hover, nav a.active { color: var(--fg); }
 }
 
 .hero-sub {
-  font-size: .95rem; color: #555;
+  font-size: .95rem; color: #eeeeee;
   margin-bottom: 2.2rem; line-height: 1.7;
   max-width: 400px;
 }
@@ -176,17 +178,68 @@ nav a:hover, nav a.active { color: var(--fg); }
 
 .btn-solid {
   display: inline-block;
-  background: #0d0d0d; color: #f0eeeb;
-  border: 2px solid #0d0d0d;
+  background: #ffffff; color: #0d0d0d;
+  border: 2px solid #ffffff;
   padding: .8rem 1.8rem;
   font-family: 'Space Mono', monospace;
   font-size: .75rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .12em;
   cursor: pointer;
+  transition: all .2s;
 }
 .btn-solid:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ─── MARKETPLACE ────────────────────────────────── */
+/* ─── FLEXIBLE CARD LAYOUT (No Description) ──────── */
+.product-card {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg2);
+  transition: border-color .3s;
+}
+.product-card:hover {
+  border-color: var(--fg2);
+}
+
+.card-img-box {
+  width: 100%; 
+  aspect-ratio: 3/4; 
+  background: var(--cat-img-bg);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; 
+  border: 1px solid var(--border2);
+  margin-bottom: 1.2rem;
+}
+
+.card-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-badge {
+  position: absolute; top: .6rem; left: 0; 
+  font-family: "sans-serif",'Space Mono', "consolas";
+  font-size: .58rem; font-weight: 700; text-transform: uppercase; 
+  letter-spacing: .08em; padding: .25rem .6rem; z-index: 2;
+  background: #580202f3; color: white;
+}
+
+.order-btn {
+  width: 100%; background: var(--fg); color: var(--bg); 
+  border: 2px solid var(--fg);
+  padding: .6rem 0; font-family: 'Space Mono', monospace; 
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em; 
+  cursor: pointer; display: block; text-align: center;
+  transition: all .2s;
+  margin-top: auto; /* يدفع الزرار لأسفل الكارت */
+}
+.order-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+
+/* ─── MARKETPLACE (Top Designs Grid) ─────────────── */
 .marketplace {
   background: var(--market-bg);
   padding: 4rem 2rem;
@@ -210,67 +263,11 @@ nav a:hover, nav a.active { color: var(--fg); }
 
 .mp-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px; background: #2a2a2a;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.mp-featured { grid-row: 1 / 3; background: #1a1a1a; display: flex; flex-direction: column; }
-.mp-small { background: #1a1a1a; display: flex; flex-direction: column; }
-
-.mp-img-wrap { flex: 1; position: relative; overflow: hidden; min-height: 200px; }
-.mp-img-ph { width: 100%; height: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-.mp-img-ph svg { width: 60%; max-width: 160px; opacity: .35; }
-.mp-featured .mp-img-ph svg { width: 55%; max-width: 200px; opacity: .35; }
-
-.mp-badge {
-  position: absolute; top: .75rem; left: 0;
-  background: var(--accent); color: #fff;
-  font-family: 'Space Mono', monospace;
-  font-size: .55rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .1em;
-  padding: .25rem .6rem; z-index: 2;
-}
-
-.mp-info {
-  padding: 1rem 1.25rem; border-top: 1px solid #2a2a2a;
-  display: flex; flex-direction: column; gap: .75rem;
-}
-.mp-info-lg {
-  padding: 1.4rem 1.5rem; border-top: 1px solid #2a2a2a;
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
-}
-
-.mp-name {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .04em; color: #ffffff; margin-bottom: .2rem;
-}
-.mp-name-lg {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .04em; color: #ffffff; margin-bottom: .3rem;
-}
-.mp-desc-sm { font-size: .75rem; color: #888; font-family: 'Space Mono', monospace; display: block; margin-bottom: .5rem; }
-.mp-price-sm { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: #ffffff; }
-
-.mp-order-btn-lg {
-  background: #fff; color: #0d0d0d; border: none;
-  padding: .6rem 1.4rem; font-family: 'Space Mono', monospace;
-  font-size: .65rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .1em; cursor: pointer; white-space: nowrap;
-}
-.mp-order-btn-lg:hover { background: var(--accent); color: #fff; }
-
-.mp-order-btn-sm {
-  background: transparent; border: 1px solid #444; color: #fff;
-  padding: .4rem 0; font-family: 'Space Mono', monospace;
-  font-size: .6rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .1em; cursor: pointer; text-align: center; display: block; width: 100%;
-}
-.mp-order-btn-sm:hover { background: var(--accent); border-color: var(--accent); }
-
-.mp-bottom-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-
-/* ─── CATALOG 4-COL (Color Filters) ────────────── */
+/* ─── CATALOG (Color Filters) ────────────────────── */
 .catalog4 {
   background: var(--catalog4-bg); color: var(--catalog4-fg);
   padding: 5rem 2rem; transition: background .3s, color .3s;
@@ -294,109 +291,14 @@ nav a:hover, nav a.active { color: var(--fg); }
 .filter-tab.active { background: var(--tab-act-bg); color: var(--tab-act-fg); border-color: var(--tab-act-bd); }
 
 .cat4-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-.cat4-card { position: relative; }
 
-.cat4-card-img {
-  width: 100%; aspect-ratio: 3/4; background: var(--cat-img-bg);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1rem; position: relative; overflow: hidden; border: 1px solid var(--catalog4-bd);
-}
-.cat4-card-img svg { width: 50%; opacity: .35; }
-
-.cat4-badge {
-  position: absolute; top: .6rem; left: 0; font-family: 'Space Mono', monospace;
-  font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: .25rem .6rem; z-index: 2;
-}
-.cat4-badge.new-badge { background: var(--catalog4-fg); color: var(--catalog4-bg); }
-
-.cat4-price-tag {
-  position: absolute; top: .6rem; right: .6rem; background: var(--catalog4-fg); color: var(--catalog4-bg);
-  font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 900; padding: .2rem .6rem;
-}
-
-.cat4-name {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: .25rem;
-}
-.cat4-desc {
-  font-family: 'Space Mono', monospace; font-size: .65rem; color: #888;
-  text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1rem; display: block;
-}
-
-.order-btn {
-  width: 100%; background: var(--catalog4-fg); color: var(--catalog4-bg); border: 2px solid var(--catalog4-fg);
-  padding: .6rem 0; font-family: 'Space Mono', monospace; font-size: .7rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em; cursor: pointer; display: block; text-align: center;
-}
-.order-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-/* ─── ARCHIVE / FULL GRID ────────────────────────── */
-.archive-products {
-  padding: 5rem 2rem;
-  background: var(--bg);
-}
-
-.sb-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--border);
-  gap: 0;
-}
-
-.sb-card {
-  border: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  overflow: hidden;
-}
-
-.sc-num {
-  font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--fg3);
-  letter-spacing: .1em; padding: 1rem 1.2rem .5rem;
-}
-
-.sc-img-wrap {
-  margin: 0 auto; width: 70%; padding: 1rem 0;
-  display: flex; align-items: center; justify-content: center; min-height: 180px;
-}
-.sc-img-wrap svg { width: 100%; opacity: .32; }
-
-.sc-body {
-  padding: 1rem 1.2rem 1.5rem; border-top: 1px solid var(--border);
-  flex: 1; display: flex; flex-direction: column;
-}
-
-.sc-name {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 900;
-  text-transform: uppercase; letter-spacing: .01em; color: var(--fg); line-height: 1; margin-bottom: .5rem;
-}
-
-.sc-desc {
-  font-family: 'Space Mono', monospace; font-size: .65rem; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--fg2); margin-bottom: 1.2rem; line-height: 1.6; flex: 1;
-}
-
-.sc-bottom { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-
-.sc-price {
-  background: var(--accent); color: #fff; font-family: 'Space Mono', monospace;
-  font-size: .75rem; font-weight: 700; padding: .35rem .7rem; white-space: nowrap; flex-shrink: 0;
-}
-
-.sc-order-btn {
-  background: transparent; border: 1px solid var(--border2); color: var(--fg);
-  font-family: 'Space Mono', monospace; font-size: .65rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .08em; padding: .35rem .8rem; cursor: pointer;
-  display: inline-block; transition: all .2s; white-space: nowrap; flex-grow: 1; text-align: center;
-}
-.sc-order-btn:hover { background: var(--fg); color: var(--bg); }
-
-/* ─── FOOTER (Centered, no brand, bigger text) ───── */
+/* ─── FOOTER ─────────────────────────────────────── */
 footer {
   background: var(--footer-bg);
-  border-top: 1px solid #1e1e1e;
+  border-top: 1px solid var(--border);
   padding: 4rem 2rem;
   display: flex;
-  flex-direction: column; /* التوسيط */
+  flex-direction: column;
   align-items: center; 
   text-align: center;
   gap: 1.5rem;
@@ -404,7 +306,7 @@ footer {
 
 .footer-copy {
   font-family: 'Space Mono', monospace; 
-  font-size: .85rem; /* تكبير الخط */
+  font-size: .85rem;
   color: #888;
   text-transform: uppercase; 
   letter-spacing: .08em; 
@@ -415,46 +317,30 @@ footer {
   color: #888; 
   font-weight: 700; 
   padding-bottom: 1px;
-  text-decoration: none;
 }
 .r2-lnk:hover { color: #fff; border-color: #fff; }
 
 /* ─── RESPONSIVE ────────────────────────────────── */
 @media (max-width: 1100px) {
-  .cat4-grid { grid-template-columns: repeat(2, 1fr); }
-  .sb-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat4-grid, .mp-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 900px) {
-  .mp-grid { grid-template-columns: repeat(2, 1fr); }
-  .mp-featured { grid-column: 1 / 3; } /* Large card takes full width */
+  .cat4-grid, .mp-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* للموبايل: كرتين بحد أقصى في كل صف */
 @media (max-width: 680px) {
   nav { display: none; }
-  .hero-box { padding: 2rem; box-shadow: 4px 4px 0 #0d0d0d; }
+  .hero-box { padding: 2rem; box-shadow: none; }
   .hero-h1, .hero-h1-red { font-size: 2.4rem; }
   
-  .cat4-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-  .sb-grid { grid-template-columns: repeat(2, 1fr); }
-  .mp-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat4-grid, .mp-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
   
-  .mp-featured { grid-column: 1 / 3; } 
-  
-  /* تصغير الخطوط داخل الكروت لتناسب المساحة */
-  .cat4-name { font-size: .95rem; }
-  .cat4-desc { font-size: .55rem; }
+  .product-card { padding: 0.6rem; }
   .order-btn { font-size: .6rem; padding: .4rem 0; }
   
-  .sc-img-wrap { min-height: 120px; }
-  .sc-name { font-size: 1.1rem; }
-  .sc-desc { font-size: .55rem; margin-bottom: 1rem;}
-  .sc-price { font-size: .65rem; padding: .25rem .5rem; }
-  .sc-order-btn { font-size: .6rem; padding: .25rem .5rem; }
-  
   .hero { padding: 4rem 1rem 3rem; }
-  .marketplace, .catalog4, .archive-products { padding: 3rem 1rem; }
+  .marketplace, .catalog4 { padding: 3rem 1rem; }
 }
 </style>
 </head>
@@ -466,31 +352,38 @@ footer {
   <nav>
     <a href="#shop" class="active">SHOP</a>
     <a href="#collections">COLLECTIONS</a>
-    <a href="#archive">ARCHIVE</a>
   </nav>
 
   <div class="header-right">
     <button class="ctrl-btn" id="themeBtn" title="Toggle theme">☀ LIGHT</button>
-    <a href="https://www.facebook.com/profile.php?id=61590400018314" target="_blank" class="social-icon" title="Visit our Facebook">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+
+    <a href="https://www.facebook.com/profile.php?id=61590400018314" target="_blank" class="social-icon" title="Facebook">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
       </svg>
     </a>
-    <a href="https://whatsapp.com/channel/0029Vb5WSKfI1rcZcfhOqW1W" target="_blank" class="social-icon" title="Join our WhatsApp Channel">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+    
+    <a href="https://whatsapp.com/channel/0029Vb5WSKfI1rcZcfhOqW1W" target="_blank" class="social-icon" title="WhatsApp">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.705 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
     </a>
+
+    <a href="#" target="_blank" class="social-icon" title="TikTok">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/>
+      </svg>
+    </a>
+
   </div>
 </header>
 
 
 <section class="hero" id="shop">
-  <span class="hero-season">[ SZN 04 / CORE ]</span>
   <div class="hero-box">
     <h1 class="hero-h1">INDUSTRIAL<br>STREETWEAR.</h1>
     <span class="hero-h1-red">UNCOMPROMISED.</span>
-    <p class="hero-sub">Raw materials. Precision cuts. Premium prints on high-quality fabrics. Order directly via WhatsApp.</p>
+    <p class="hero-sub">Raw materials. Precision cuts. Premium prints on high-quality fabrics. Order directly via our Facebook Page.</p>
     <div class="hero-btns">
       <a href="#collections" class="btn-solid">BROWSE DESIGNS</a>
     </div>
@@ -504,71 +397,29 @@ footer {
   </div>
 
   <div class="mp-grid">
-    <div class="mp-featured">
-      <div class="mp-img-wrap">
-        <span class="mp-badge">NEW ARRIVAL</span>
-        <div class="mp-img-ph" style="background:#181818;">
-          <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M70 20 C70 20 80 55 100 60 C120 55 130 20 130 20 L168 48 L152 82 L130 70 L130 185 L70 185 L70 70 L48 82 L32 48 Z" fill="#555" stroke="#777" stroke-width="1"/>
-            <path d="M80 18 C80 18 86 40 100 48 C114 40 120 18 120 18 C118 45 110 58 100 60 C90 58 82 45 80 18Z" fill="#444" stroke="#666" stroke-width="0.8"/>
-            <rect x="82" y="122" width="36" height="24" rx="2" fill="#444" stroke="#666" stroke-width="0.5"/>
-            <circle cx="100" cy="134" r="3" fill="#555"/>
-          </svg>
-        </div>
+    
+    <div class="product-card">
+      <div class="card-img-box">
+        <!-- <span class="card-badge">NEW THREADS</span> -->
+        <img src="https://i.postimg.cc/jj2d6MjN/image.png" alt="Top Design 1">
       </div>
-      <div class="mp-info-lg">
-        <div>
-          <span class="mp-name-lg">HEAVYWEIGHT SKULL HOODIE</span>
-          <span class="mp-desc-sm">14oz / 100% Cotton / Boxy Fit</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#fff;">$35</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Heavyweight%20Skull%20Hoodie" class="mp-order-btn-lg">ORDER NOW</a>
-        </div>
-      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
 
-    <div class="mp-small">
-      <div class="mp-img-wrap">
-        <div class="mp-img-ph" style="background:#141414;">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#555" stroke="#777" stroke-width="1"/>
-            <rect x="70" y="100" width="60" height="8" rx="1" fill="#444"/>
-          </svg>
-        </div>
+    <div class="product-card">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/43pXsyWd/image.png" alt="Top Design 2">
       </div>
-      <div class="mp-info">
-        <div>
-          <span class="mp-name">STANDARD ISSUE TEE</span>
-          <span class="mp-desc-sm">Front minimal print</span>
-        </div>
-        <div class="mp-bottom-row">
-          <span class="mp-price-sm">$20</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Standard%20Issue%20Tee" class="mp-order-btn-sm" style="width: auto; padding: .3rem 1rem;">ORDER NOW</a>
-        </div>
-      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
 
-    <div class="mp-small">
-      <div class="mp-img-wrap">
-        <div class="mp-img-ph" style="background:#141414;">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#555" stroke="#777" stroke-width="1"/>
-          </svg>
-        </div>
+    <div class="product-card">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/6ptQqdGV/image.png" alt="Top Design 3">
       </div>
-      <div class="mp-info">
-        <div>
-          <span class="mp-name">CYBER PUNK TEE</span>
-          <span class="mp-desc-sm">Neon back graphic</span>
-        </div>
-        <div class="mp-bottom-row">
-          <span class="mp-price-sm">$25</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Cyber%20Punk%20Tee" class="mp-order-btn-sm" style="width: auto; padding: .3rem 1rem;">ORDER NOW</a>
-        </div>
-      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
-  </div>
+    </div>
 </section>
 
 
@@ -588,134 +439,283 @@ footer {
 
   <div class="cat4-grid">
 
-    <div class="cat4-card" data-color="black">
-      <div class="cat4-card-img">
-        <span class="cat4-badge new-badge">NEW</span>
-        <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M70 20 C70 20 80 55 100 60 C120 55 130 20 130 20 L168 48 L152 82 L130 70 L130 185 L70 185 L70 70 L48 82 L32 48 Z" fill="#555" stroke="#666" stroke-width="1"/>
-        </svg>
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+        <span class="card-badge">NEW THREADS</span>
+        <img src="https://i.postimg.cc/6ptQqdGV/image.png" alt="White Design">
       </div>
-      <span class="cat4-name">VOID HOODIE</span>
-      <span class="cat4-desc">Heavyweight French Terry</span>
-      <span class="cat4-price-tag" style="position:static; display:inline-block; margin-bottom:1rem;">$30</span>
-      <a href="https://wa.me/201000000000?text=Order%3A%20Void%20Hoodie" class="order-btn">ORDER NOW</a>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
-    <div class="cat4-card" data-color="colors">
-      <div class="cat4-card-img">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#555" stroke="#666" stroke-width="1"/>
-        </svg>
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <span class="card-badge">NEW THREADS</span>
+        <img src="https://i.postimg.cc/zBLSymRZ/image.png" alt="White Design">
       </div>
-      <span class="cat4-name">OLIVE VINTAGE TEE</span>
-      <span class="cat4-desc">Distressed graphic on chest</span>
-      <span class="cat4-price-tag" style="position:static; display:inline-block; margin-bottom:1rem;">$22</span>
-      <a href="https://wa.me/201000000000?text=Order%3A%20Olive%20Vintage%20Tee" class="order-btn">ORDER NOW</a>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
-    <div class="cat4-card" data-color="white">
-      <div class="cat4-card-img">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#555" stroke="#666" stroke-width="1"/>
-          <rect x="70" y="98" width="60" height="8" rx="1" fill="#444"/>
-        </svg>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <span class="card-badge">NEW THREADS</span>
+        <img src="https://i.postimg.cc/ncKKjGMG/image.png" alt="White Design">
       </div>
-      <span class="cat4-name">SYSTEM WHITE TEE</span>
-      <span class="cat4-desc">100% Organic Cotton</span>
-      <span class="cat4-price-tag" style="position:static; display:inline-block; margin-bottom:1rem;">$20</span>
-      <a href="https://wa.me/201000000000?text=Order%3A%20System%20White%20Tee" class="order-btn">ORDER NOW</a>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
-    <div class="cat4-card" data-color="black">
-      <div class="cat4-card-img">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#555" stroke="#666" stroke-width="1"/>
-        </svg>
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <span class="card-badge">NEW THREADS</span>
+        <img src="https://i.postimg.cc/LXZLHzrM/image.png" alt="White Design">
       </div>
-      <span class="cat4-name">DARK SOUL TEE</span>
-      <span class="cat4-desc">Oversized Fit</span>
-      <span class="cat4-price-tag" style="position:static; display:inline-block; margin-bottom:1rem;">$24</span>
-      <a href="https://wa.me/201000000000?text=Order%3A%20Dark%20Soul%20Tee" class="order-btn">ORDER NOW</a>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+         <span class="card-badge">NEW THREADS</span>
+        <img src="https://i.postimg.cc/bJ3cwtbC/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/x1Ckfvmf/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/hvrH5qy0/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+    
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/dVDz4p8j/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/JhCGb9gB/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/HsvNczfm/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/pdgbhH1Q/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/nLMp9TFN/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+ 
+ 
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/vmf2KsDc/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/vmCMrMkZ/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/SsK1Vt2P/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/3R611rHF/image.png" alt="White Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/4ys6BYSJ/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/FFLVm448/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/kGqHKXN2/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/pTBG2JfP/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/VLvG8M5R/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="colors">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/g0FN8TsB/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/zfCpjFPw/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/rpVfFYJR/image.png" alt="Black Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/k4wsrXCC/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/8PxHg02W/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+    
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/Zn2rZWM5/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/0QqDy6x0/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/15FFw5dg/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="white">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/mZpkdcJs/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/s1Cvw7LW/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
+    </div>
+
+
+    <div class="product-card cat4-card" data-color="black">
+      <div class="card-img-box">
+        <img src="https://i.postimg.cc/BbKgVWSW/image.png" alt="Color Design">
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=61590400018314" class="order-btn" target="_blank">ORDER NOW</a>
     </div>
     </div>
 </section>
-
-
-<section class="archive-products" id="archive">
-  <div class="cat4-top" style="margin-bottom: 2.5rem;">
-    <h2 class="cat4-h2">FULL ARCHIVE</h2>
-    <p class="cat4-sub">ALL AVAILABLE DESIGNS</p>
-  </div>
-
-  <div class="sb-grid">
-
-    <div class="sb-card">
-      <div class="sc-num">#001</div>
-      <div class="sc-img-wrap">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#666" stroke="#888" stroke-width="1"/>
-          <rect x="68" y="94" width="64" height="10" rx="1" fill="#555"/>
-        </svg>
-      </div>
-      <div class="sc-body">
-        <span class="sc-name">INDUSTRIAL TEE_01</span>
-        <span class="sc-desc">OVERSIZED FIT. BACK GRAPHIC.</span>
-        <div class="sc-bottom">
-          <span class="sc-price">$20.00</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Industrial%20Tee%2001" class="sc-order-btn">ORDER NOW</a>
-        </div>
-      </div>
-    </div>
-    <div class="sb-card">
-      <div class="sc-num">#002</div>
-      <div class="sc-img-wrap">
-        <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M70 20 C70 20 80 55 100 60 C120 55 130 20 130 20 L168 48 L152 82 L130 70 L130 185 L70 185 L70 70 L48 82 L32 48 Z" fill="#666" stroke="#888" stroke-width="1"/>
-        </svg>
-      </div>
-      <div class="sc-body">
-        <span class="sc-name">BLANK HOODIE</span>
-        <span class="sc-desc">FRENCH TERRY. MINIMAL LOGO.</span>
-        <div class="sc-bottom">
-          <span class="sc-price">$30.00</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Blank%20Hoodie" class="sc-order-btn">ORDER NOW</a>
-        </div>
-      </div>
-    </div>
-    <div class="sb-card">
-      <div class="sc-num">#003</div>
-      <div class="sc-img-wrap">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M72 30 C72 30 82 52 100 58 C118 52 128 30 128 30 L162 52 L146 84 L126 73 L126 172 L74 172 L74 73 L54 84 L38 52 Z" fill="#666" stroke="#888" stroke-width="1"/>
-        </svg>
-      </div>
-      <div class="sc-body">
-        <span class="sc-name">STREET TEE</span>
-        <span class="sc-desc">100% COTTON. FRONT PRINT.</span>
-        <div class="sc-bottom">
-          <span class="sc-price">$22.00</span>
-          <a href="https://wa.me/201000000000?text=Order%3A%20Street%20Tee" class="sc-order-btn">ORDER NOW</a>
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
-
 
 <footer>
   <p class="footer-copy">
     © ALL RIGHTS RESERVED.<br><br>
-    Powered by <a href="https://r2-gmap.vercel.app" class="r2-lnk" target="_blank">R2</a>
+    Powered by <a href="#" class="r2-lnk" target="_blank">R2</a>
   </p>
   
   <div style="display: flex; gap: 1.2rem; align-items: center;">
-    <a href="https://www.facebook.com/profile.php?id=61590400018314" target="_blank" class="social-icon" title="Visit our Facebook">
-      <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+
+    <a href="https://www.facebook.com/profile.php?id=61590400018314" target="_blank" class="social-icon" title="Facebook">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
       </svg>
     </a>
-    <a href="https://whatsapp.com/channel/0029Vb5WSKfI1rcZcfhOqW1W" target="_blank" class="social-icon" title="Join our WhatsApp Channel">
-      <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+    
+    <a href="https://whatsapp.com/channel/0029Vb5WSKfI1rcZcfhOqW1W" target="_blank" class="social-icon" title="WhatsApp">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.705 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
     </a>
+
+    <a href="#" target="_blank" class="social-icon" title="TikTok">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/>
+      </svg>
+    </a>
+
   </div>
 </footer>
 
@@ -731,14 +731,17 @@ themeBtn.addEventListener('click', () => {
 // ─── COLOR FILTER LOGIC ─────────────────────────────────
 document.querySelectorAll('.filter-tab').forEach(tab => {
   tab.addEventListener('click', () => {
+    
+    // Remove "active" from all tabs and add to the clicked one
     document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     
     const filter = tab.dataset.filter;
     
+    // Show/Hide cards based on their data-color attribute
     document.querySelectorAll('.cat4-card').forEach(card => {
       if (filter === 'all' || card.dataset.color === filter) {
-        card.style.display = 'block';
+        card.style.display = 'flex'; // Use flex to maintain internal layout
       } else {
         card.style.display = 'none';
       }
